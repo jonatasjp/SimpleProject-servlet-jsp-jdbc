@@ -15,29 +15,30 @@ import persistencia.UsuarioDAO;
 @WebServlet("/usuController.do")
 public class UsuarioController extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String nome = req.getParameter("nome");
-		String sobrenome = req.getParameter("sobrenome");
-		String login = req.getParameter("login");
-		String senha = req.getParameter("senha");
+		String id = req.getParameter("id");
 		
 		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-		usuario.setSobrenome(sobrenome);
-		usuario.setLogin(login);
-		usuario.setSenha(senha);
+		if(id != null && !id.isEmpty()){
+			usuario.setId(Integer.parseInt(id));
+		}
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		try {
-			usuarioDAO.cadastrar(usuario);
+			usuarioDAO.deletar(usuario);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		resp.getWriter().append(
 				"<html>"
-				+ "Hello World!"
+				+ "exclusão realizada com sucesso!"
 				+ "</html>"
 				);
 	}
