@@ -7,6 +7,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Listagem de usuários clean</title>
+<script type="text/javascript">
+	
+	function confirmaExclusao(id){
+		
+		if(window.confirm("tem certeza que deseja realizar a exclusão?")){
+			location.href =  "usuController.do?acao=excluir&id="+id;
+		}
+	}
+
+</script>
+
 </head>
 <body>
 
@@ -37,7 +48,7 @@ List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 			<%=usuario.getLogin()%>
 		</td>
 		<td>
-			<a href="usuController.do?acao=excluir&id=<%=usuario.getId()%>">excluir</a>
+			<a href="javascript:confirmaExclusao(<%=usuario.getId()%>)">excluir</a>
 		</td>
 		<td>
 			<a href="usuController.do?acao=alterar&id=<%=usuario.getId()%>">alterar</a>
@@ -48,5 +59,7 @@ List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 %>
 
 </table>
+<br/>
+<a href="usuController.do?acao=inserir">Cadastrar novo usuário</a>
 </body>
 </html>

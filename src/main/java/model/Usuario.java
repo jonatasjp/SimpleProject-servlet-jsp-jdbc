@@ -7,6 +7,13 @@ public class Usuario {
 	private String sobrenome;
 	private String login;
 	private String senha;
+	
+	public Usuario() {
+		this.setNome("");
+		this.setSobrenome("");
+		this.setLogin("");
+		this.setSenha("");
+	}
 
 	public Integer getId() {
 		return id;

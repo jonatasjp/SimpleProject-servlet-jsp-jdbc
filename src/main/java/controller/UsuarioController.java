@@ -1,8 +1,6 @@
 package controller;
 
-import java.awt.SecondaryLoop;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +34,14 @@ public class UsuarioController extends HttpServlet {
 				listar(req, resp);
 			}else if(acao.equals("alterar")){
 				alterar(req, resp);
+			}else if(acao.equals("inserir")){
+				inserir(req, resp);
 			}
 		}else{
 			resp.sendRedirect("usuController.do?acao=listar");
 		}
 	}
+
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +52,9 @@ public class UsuarioController extends HttpServlet {
 		String senha = req.getParameter("senha");
 		
 		Usuario usuario = new Usuario();
-		usuario.setId(Integer.parseInt(id));
+		if(id != null && !id.equals("null")){
+			usuario.setId(Integer.parseInt(id));
+		}
 		usuario.setNome(nome);
 		usuario.setSobrenome(sobrenome);
 		usuario.setLogin(login);
@@ -113,5 +116,11 @@ public class UsuarioController extends HttpServlet {
 			return;
 		}
 		resp.sendRedirect("usuController.do?acao=listar");
+	}
+	private void inserir(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usuario = new Usuario();
+		req.setAttribute("usuario", usuario);
+		req.getRequestDispatcher("WEB-INF/jsp/formCadastro.jsp").forward(req, resp);
 	}
 }
