@@ -15,7 +15,15 @@ public class UsuarioDAO {
 
 	private Connection connection = ConnectionFactory.getConnection();
 
-	public void cadastrar(Usuario usuario) throws SQLException {
+	public void cadastrar(Usuario usuario) throws SQLException{
+		if(usuario != null && usuario.getId() != null){
+			alterar(usuario);
+		}else{
+			inserir(usuario);
+		}
+	}
+	
+	public void inserir(Usuario usuario) throws SQLException {
 		String sql = "insert into usuario (nome, sobrenome, login, senha) values (?, ?, ?, ?)";
 		PreparedStatement statement = null;
 
