@@ -17,31 +17,29 @@ public class UsuarioController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("passou aqui");
-		String a = req.getParameter("nome");
-		String b = req.getParameter("sobrenome");
-		String c = req.getParameter("login");
-		String d = req.getParameter("senha");
+		String nome = req.getParameter("nome");
+		String sobrenome = req.getParameter("sobrenome");
+		String login = req.getParameter("login");
+		String senha = req.getParameter("senha");
 		
-		Usuario u = new Usuario();
-		u.setNome(a);
-		u.setSobrenome(b);
-		u.setLogin(c);
-		u.setSenha(d);
+		Usuario usuario = new Usuario();
+		usuario.setNome(nome);
+		usuario.setSobrenome(sobrenome);
+		usuario.setLogin(login);
+		usuario.setSenha(senha);
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		try {
-			usuarioDAO.cadastrar(u);
+			usuarioDAO.cadastrar(usuario);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		resp.getWriter().append(
 				"<html>"
-				+ "eu quero ver se imprime algo na tela"
+				+ "Hello World!"
 				+ "</html>"
 				);
-		System.out.println("passou aqui");
 	}
 
 	@Override
