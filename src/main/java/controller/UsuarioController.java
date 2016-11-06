@@ -44,9 +44,29 @@ public class UsuarioController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("passou aqui");
-		super.doPost(req, resp);
-		System.out.println("passou aqui");
+		String nome = req.getParameter("nome");
+		String sobrenome = req.getParameter("sobrenome");
+		String login = req.getParameter("login");
+		String senha = req.getParameter("senha");
+		
+		Usuario usuario = new Usuario();
+		usuario.setNome(nome);
+		usuario.setSobrenome(sobrenome);
+		usuario.setLogin(login);
+		usuario.setSenha(senha);
+		
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		try {
+			usuarioDAO.cadastrar(usuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		resp.getWriter().append(
+				"<html>"
+				+ "Cadastro realizado com sucesso!"
+				+ "</html>"
+				);
 	}
 
 }
